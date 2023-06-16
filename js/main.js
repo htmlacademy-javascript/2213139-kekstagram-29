@@ -1,3 +1,5 @@
+// ДМИТРИЙ ТИМОФЕЕВ
+
 // Фразы для описания фотографий
 
 const DESCRIPTIONS = {1: 'Отель с бассейном', 2: 'Указатель', 3: 'Море... Пляж...', 4: 'Вот такие мы красивые!', 5: 'Весёлая кухня', 6: 'Шикарное авто', 7: 'Свежее и вкусное', 8: 'Вкуснотища!', 9: 'Самолёт', 10: 'Хранение обуви', 11: 'Дорога к морю', 12: 'Авто в аренду', 13: 'Салат с красной рыбой', 14: 'Суши с котом', 15: 'Стильные валенки', 16: 'Самолёт над облаками', 17: 'Хор', 18: 'Раритетное авто', 19: 'Тапочки с освещением', 20: 'Пальмы', 21: 'вкусноеёшее блюдо', 22: 'Морский закат', 23: 'Краб на камне', 24: 'Супер-шоу', 25: 'сафари на авто',};
@@ -38,10 +40,6 @@ const createIdGenerator = () => {
   return () => lastGeneratedId++;
 };
 
-const generatePhotoId = createIdGenerator();
-const generatePhotoUrl = createIdGenerator();
-const generateDescription = createIdGenerator();
-
 const createRandomId = (min, max) => {
   const previousValues = [];
 
@@ -62,6 +60,7 @@ const createRandomId = (min, max) => {
 };
 
 // Создание объекта для комментариев
+
 const getRandomId = createRandomId(1, 1000);
 
 const createCommentFoto = () => ({
@@ -72,6 +71,10 @@ const createCommentFoto = () => ({
 });
 
 // Создание объекта для описания фотографии
+
+const generatePhotoId = createIdGenerator();
+const generatePhotoUrl = createIdGenerator();
+const generateDescription = createIdGenerator();
 
 const createDescriptionFoto = () => ({
   id: generatePhotoId(),
