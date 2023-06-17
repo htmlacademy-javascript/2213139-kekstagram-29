@@ -81,7 +81,7 @@ const createDescriptionFoto = () => ({
   url: `photos/${generatePhotoUrl()}.jpg`,
   description: `${DESCRIPTIONS[generateDescription()]}`,
   likes: getRandomInteger(15, 200),
-  comments: Array.from({length: getRandomInteger(1, 30)}, createCommentFoto),
+  comments: Array.from({length: getRandomInteger(0, 30)}, createCommentFoto),
 });
 
 const fotoDescriptions = Array.from({length: NUMBER_DESCRIPTIONS_FOTO}, createDescriptionFoto);
