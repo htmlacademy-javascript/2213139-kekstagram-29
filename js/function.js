@@ -4,11 +4,6 @@ const checkStringLength = (string, maxLength) => string.length <= maxLength;
 
 checkStringLength('Слоны идут на север', 19);
 
-// test
-// console.log(checkStringLength('проверяемая строка', 20));
-// console.log(checkStringLength('проверяемая строка', 18));
-// console.log(checkStringLength('проверяемая строка', 10));
-
 
 // Task_2_1 - Проверка на палиндром
 
@@ -23,14 +18,14 @@ isPalindromeOne('топот');
 
 // Task_2_2 - Проверка на палиндром строки с пробелами
 
-function isPalindromeTwo (string) {
+const isPalindromeTwo = (string) => {
   const normalString = string.replaceAll(' ', '').toLowerCase();
   const newString = normalString.split('').reverse('').join('');
 
   return normalString === newString;
-}
+};
 
-isPalindromeTwo ('Лёша на полке клопа нашёл ');
+isPalindromeTwo('Лёша на полке клопа нашёл ');
 
 // test
 // console.log(isPalindromeTwo ('Лёша на полке клопа нашёл '));
@@ -38,7 +33,7 @@ isPalindromeTwo ('Лёша на полке клопа нашёл ');
 
 // Task_3_1 - Дополнительное (извлечение цифр из строки)
 
-function getNumberOne (string) {
+const getNumberOne = (string) => {
   let newString = '';
 
   for (const elem of string) {
@@ -52,7 +47,7 @@ function getNumberOne (string) {
   }
 
   return NaN;
-}
+};
 
 getNumberOne('1 кефир, 0.5 батона');
 
@@ -66,7 +61,7 @@ getNumberOne('1 кефир, 0.5 батона');
 
 // Task_3_2 - Дополнительное (извлечение цифр из строки), если пришло число
 
-function getNumberTwo (string) {
+const getNumberTwo = (string) => {
   let newString = '';
 
   // проверка на тип данных - число
@@ -85,7 +80,7 @@ function getNumberTwo (string) {
   }
 
   return NaN;
-}
+};
 
 getNumberTwo('-1.5');
 
@@ -95,3 +90,17 @@ getNumberTwo('-1.5');
 // console.log(getNumberTwo(2023));
 // console.log(getNumberTwo(-1.5));
 // console.log(getNumberTwo(0.5));
+
+
+// ВАРИАНТ С РЕГУЛЯРКАМИ
+
+const getNumberThree = (string) => {
+  string = String(string).replace(/\D/g, '');
+  return parseInt(string, 10);
+};
+
+getNumberThree('-1.5');
+
+// console.log(getNumberTwo('а я томат'));
+// console.log(getNumberTwo('2023 год'));
+// console.log(getNumberTwo(2023));
