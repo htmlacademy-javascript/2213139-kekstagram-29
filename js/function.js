@@ -78,3 +78,37 @@ const getNumberThree = (string) => {
 };
 
 getNumberThree('-1.5');
+
+
+// Задание по разделу 5 ФУНКЦИИ ВОЗВРАЩАЮТСЯ
+
+
+// Функция - Перевод времени в минуты
+
+const getAmountMinutes = (time) => {
+  const TIME_COUNT = {hours: 0, minutes: 1};
+  const arrayHoursAndMinutes = time.split(':');
+
+  return arrayHoursAndMinutes[TIME_COUNT.hours] * 60 + Number(arrayHoursAndMinutes[TIME_COUNT.minutes]);
+};
+
+// Функция - решение
+
+const isWorkingDay = (startWorkingDay, endWorkingDay, startMeeting, durationMeeting) => {
+  const getAmountMinutesEndMeeting = getAmountMinutes(startMeeting) + durationMeeting;
+  let result = true;
+
+  if (getAmountMinutes(startMeeting) < getAmountMinutes(startWorkingDay) || getAmountMinutesEndMeeting > getAmountMinutes(endWorkingDay)) {
+    result = false;
+  }
+
+  return result;
+};
+
+isWorkingDay('08:00', '17:30', '14:00', 90);
+
+// console.log(isWorkingDay('08:00', '17:30', '14:00', 90));
+// console.log(isWorkingDay('8:0', '10:0', '8:0', 120));
+// console.log(isWorkingDay('08:00', '14:30', '14:00', 90));
+// console.log(isWorkingDay('14:00', '17:30', '08:0', 90));
+// console.log(isWorkingDay('8:00', '17:30', '08:00', 900));
