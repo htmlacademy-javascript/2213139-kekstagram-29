@@ -1,5 +1,4 @@
-import {getRandomInteger} from './util.js';
-import {getArrayElement} from './util.js';
+import {getRandomInteger, getArrayElement} from './util.js';
 
 // Количество описаний фото
 
@@ -38,6 +37,10 @@ const COMMENTS_COUNTER = {
   max: 30
 };
 
+// Для объекта по описанию фотографий
+let commentId = 1;
+let descriptionId = 1;
+
 // Получение одного или двух комментариев
 
 const createMessage = () => {
@@ -55,9 +58,6 @@ const createPhotoComment = () => ({
 });
 
 // Создание объекта для описания фотографии
-
-let commentId = 1;
-let descriptionId = 1;
 
 const createPhotoDescription = () => ({
   id: commentId,
