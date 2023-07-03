@@ -7,6 +7,7 @@ const commentsLoader = bigPicture.querySelector('.comments-loader'); // загр
 const body = document.querySelector('body');
 const buttonClose = bigPicture.querySelector('.cancel');
 
+// слушатель события на кнопку esc
 const onDocumentKeydown = (evt) => {
   if (evt.key === 'Escape') {
     evt.preventDefault();
@@ -22,14 +23,15 @@ function closedModal () {
   document.removeEventListener('keydown', onDocumentKeydown());
 }
 
+// функция-обработчик события для открытия bigPicture
 const openModal = () => {
   bigPicture.classList.remove('hidden');
   commentCount.classList.add('hidden'); // скрытие счётчика комментариев
   commentsLoader.classList.add('hidden'); // скрытие загрузки комментариев
   body.classList.add('modal-open');
 
-  buttonClose.addEventListener('click', closedModal());
-  document.addEventListener('keydown', onDocumentKeydown());
+  buttonClose.addEventListener('click', closedModal);
+  document.addEventListener('keydown', onDocumentKeydown);
 };
 
 
