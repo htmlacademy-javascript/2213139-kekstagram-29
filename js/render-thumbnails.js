@@ -14,7 +14,10 @@ const createThumbnail = (photo) => {
   img.alt = photo.description;
   pictureClone.querySelector('.picture__comments').textContent = photo.comments.length;
   pictureClone.querySelector('.picture__likes').textContent = photo.likes;
-  pictureClone.addEventListener('click', () => renderBigPicture(photo));
+  pictureClone.addEventListener('click', (event) => {
+    event.preventDefault();
+    renderBigPicture(photo);
+  });
   fragment.append(pictureClone);
 };
 

@@ -33,7 +33,7 @@ const LIKES_COUNTER = {
 };
 
 const COMMENTS_COUNTER = {
-  min: 5,
+  min: 1,
   max: 30
 };
 
