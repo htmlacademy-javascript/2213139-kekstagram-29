@@ -61,7 +61,7 @@ function showCommentsList () {
   commentsLoader.classList.remove('hidden');
   const comments = socialComments.children;
 
-  removeClassHidden(comments);
+  removeClassHidden(comments); // показываем первые 5
 
   commentsLoader.addEventListener('click', (event) => {
     buttonDownloadClickHendler(event);
@@ -89,6 +89,11 @@ function removeClassHidden (comments) {
 
   if (commentsAmount === comments.length) {
     commentsLoader.classList.add('hidden');
+
+    commentsLoader.removeEventListener('click', (event) => {
+      buttonDownloadClickHendler(event);
+      removeClassHidden(comments);
+    });
   }
 }
 
