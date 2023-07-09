@@ -1,20 +1,35 @@
+const COMMENT_COUNTER = 5;
 const bigPicture = document.querySelector('.big-picture');
-const socialComments = bigPicture.querySelector('.social__comments');
-const socialComment = bigPicture.querySelector('.social__comment'); // будет шаблоном
-const commentCount = bigPicture.querySelector('.social__comment-count');
-const commentsCount = bigPicture.querySelector('.comments-count');
-const commentsLoader = bigPicture.querySelector('.comments-loader'); // загрузка комментариев
-const buttonClose = bigPicture.querySelector('.cancel');
-const bigImg = bigPicture.querySelector('.big-picture__img img');
-const likesCount = bigPicture.querySelector('.likes-count');
-const socialCaption = bigPicture.querySelector('.social__caption');
-let numberComments;
+const socialComments = document.querySelector('.social__comments');
+const socialComment = document.querySelector('.social__comment'); // будет шаблоном
+const commentCount = document.querySelector('.social__comment-count'); // счётчик комментариев
+const commentsLoader = document.querySelector('.comments-loader'); // загрузка комментариев
+const buttonClose = document.querySelector('.big-picture__cancel');
+const bigImg = document.querySelector('.big-picture__img img');
+const likesCount = document.querySelector('.likes-count');
+const socialCaption = document.querySelector('.social__caption');
+
+let showingComments = 0;
+let comments;
+
+const fillCommentsCounter = () => {
+  commentCount.innerHTML = `${showingComments} из <span class="comments-count">${comments.length}</span> комментариев</div>`;
+};
+
+const setButtonState = () => {
+  if (showingComments >= comments.length) {
+    commentsLoader.classList.add('hidden');
+    return;
+  }
+  commentsLoader.classList.remove('hidden');
+};
 
 const openModal = () => {
   bigPicture.classList.remove('hidden');
   document.body.classList.add('modal-open');
   buttonClose.addEventListener('click', buttonCloseClickHandler);
   document.addEventListener('keydown', documentKeydownHandler);
+  commentsLoader.addEventListener('click', commentsLoaderClickHandler);
 };
 
 const closeModal = () => {
@@ -22,6 +37,8 @@ const closeModal = () => {
   document.body.classList.remove('modal-open');
   buttonClose.removeEventListener('click', buttonCloseClickHandler);
   document.removeEventListener('keydown', documentKeydownHandler);
+  commentsLoader.removeEventListener('click', commentsLoaderClickHandler);
+  showingComments = 0;
 };
 
 function buttonCloseClickHandler (event) {
@@ -41,72 +58,34 @@ const fillComment = (item) => {
   socialPicture.src = item.avatar;
   socialPicture.alt = item.name;
   comment.querySelector('.social__text').textContent = item.message;
-  comment.classList.add('hidden');
   return comment;
 };
 
-const fillCommentsList = (data) => {
-  data.forEach((item) => socialComments.append(fillComment(item)));
-  showCommentsList();
+const fillCommentsList = () => {
+  const fragment = document.createDocumentFragment();
+  const currentComments = comments.slice(showingComments, showingComments + COMMENT_COUNTER);
+  showingComments = Math.min(showingComments + COMMENT_COUNTER, comments.length);
+  currentComments.forEach((comment) => fragment.append(fillComment(comment)));
+  socialComments.append(fragment);
+  setButtonState();
+  fillCommentsCounter();
 };
 
-// заполнение общего количества комментариев
-const setCommentsCount = (data) => {
-  commentsCount.textContent = data.length;
-};
-
-// показывает заданное количество комментариев
-function showCommentsList () {
-  numberComments = 5;
-  commentsLoader.classList.remove('hidden');
-  const comments = socialComments.children;
-
-  removeClassHidden(comments); // показываем первые 5
-
-  commentsLoader.addEventListener('click', (event) => {
-    buttonDownloadClickHendler(event);
-    removeClassHidden(comments);
-  });
-}
-
-// обработчик события "Загрузить ещё"
-function buttonDownloadClickHendler (event) {
+function commentsLoaderClickHandler (event) {
   event.preventDefault();
-  numberComments += 5;
+  fillCommentsList();
 }
 
-// удаляет класс hidden
-function removeClassHidden (comments) {
-  let commentsAmount = 0;
-
-  for (let i = 0; i < comments.length; i++) {
-    if (i < numberComments) {
-      comments[i].classList.remove('hidden');
-      commentsAmount++;
-    }
-  }
-  commentCount.innerHTML = `${commentsAmount} из <span class="comments-count">${comments.length}</span> комментариев`;
-
-  if (commentsAmount === comments.length) {
-    commentsLoader.classList.add('hidden');
-
-    commentsLoader.removeEventListener('click', (event) => {
-      buttonDownloadClickHendler(event);
-      removeClassHidden(comments);
-    });
-  }
-}
-
-const fillBigPicture = (data) => {
+function fillBigPicture (data) {
   bigImg.src = data.url;
   bigImg.alt = data.description;
   likesCount.textContent = data.likes;
   socialCaption.textContent = data.description;
-  fillCommentsList(data.comments);
-  setCommentsCount(data.comments);
-};
+  fillCommentsList();
+}
 
 const renderBigPicture = (data) => {
+  comments = data.comments;
   socialComments.innerHTML = '';
   openModal();
   fillBigPicture(data);
