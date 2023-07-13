@@ -1,5 +1,5 @@
-import {isNotInput, isEscapeKey} from '../utils/util.js';
 import {initScale, resetScale} from './scale.js';
+import {setValidate, resetValidation} from './validate.js';
 
 const uploadInput = document.querySelector('.img-upload__input');
 const uploadForm = document.querySelector('.img-upload__form');
@@ -14,6 +14,7 @@ const openUploadForm = () => {
 
 const closeUploadForm = () => {
   uploadForm.reset();
+  resetValidation();
   resetScale();
   uploadOverlay.classList.add('hidden');
   document.body.classList.remove('modal-open');
@@ -27,7 +28,7 @@ const uploadFormSubmitHandler = (event) => {
 };
 
 function documentKeydownHandler(event) {
-  if (isEscapeKey(event) && !isNotInput(event)) {
+  if (event.key === 'Escape' && !event.target.closest('.text__hashtags') && !event.target.closest('.text__description')) {
     event.preventDefault();
     closeUploadForm();
   }
@@ -35,6 +36,7 @@ function documentKeydownHandler(event) {
 
 const initUploadForm = () => {
   initScale();
+  setValidate();
   uploadInput.addEventListener('change', uploadImageChangeHandler);
   uploadForm.addEventListener('submit', uploadFormSubmitHandler);
   imgUploadCancel.addEventListener('click', imgUploadCancelClickHandler);
