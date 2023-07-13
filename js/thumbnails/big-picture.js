@@ -1,9 +1,9 @@
 const COMMENT_COUNTER = 5;
 const bigPicture = document.querySelector('.big-picture');
 const socialComments = document.querySelector('.social__comments');
-const socialComment = document.querySelector('.social__comment'); // будет шаблоном
-const commentCount = document.querySelector('.social__comment-count'); // счётчик комментариев
-const commentsLoader = document.querySelector('.comments-loader'); // загрузка комментариев
+const socialComment = document.querySelector('.social__comment');
+const commentCount = document.querySelector('.social__comment-count');
+const commentsLoader = document.querySelector('.comments-loader');
 const buttonClose = document.querySelector('.big-picture__cancel');
 const bigImg = document.querySelector('.big-picture__img img');
 const likesCount = document.querySelector('.likes-count');
