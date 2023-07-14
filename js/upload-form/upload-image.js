@@ -1,5 +1,6 @@
 import {initScale, resetScale} from './scale.js';
 import {setValidate, resetValidation} from './validate.js';
+import {initSlider, resetSlider} from './slider.js';
 
 const uploadInput = document.querySelector('.img-upload__input');
 const uploadForm = document.querySelector('.img-upload__form');
@@ -16,6 +17,7 @@ const closeUploadForm = () => {
   uploadForm.reset();
   resetValidation();
   resetScale();
+  resetSlider();
   uploadOverlay.classList.add('hidden');
   document.body.classList.remove('modal-open');
   document.removeEventListener ('keydown', documentKeydownHandler);
@@ -37,6 +39,7 @@ function documentKeydownHandler(event) {
 const initUploadForm = () => {
   initScale();
   setValidate();
+  initSlider();
   uploadInput.addEventListener('change', uploadImageChangeHandler);
   uploadForm.addEventListener('submit', uploadFormSubmitHandler);
   imgUploadCancel.addEventListener('click', imgUploadCancelClickHandler);
