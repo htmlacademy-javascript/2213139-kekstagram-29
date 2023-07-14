@@ -1,4 +1,4 @@
-import {getRandomInteger, getArrayElement} from './util.js';
+import {getRandomInteger, getArrayElement} from '../utils/util.js';
 
 // Количество описаний фото
 
