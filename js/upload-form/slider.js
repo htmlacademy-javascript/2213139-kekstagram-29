@@ -39,7 +39,7 @@ const FILTERS = {
   }
 };
 
-const effectButtons = document.querySelector('.effects__list');
+const effectChoice = document.querySelector('.img-upload__effects');
 const effectValue = document.querySelector('.effect-level__value');
 const imagePreview = document.querySelector('.img-upload__preview img');
 const sliderContainer = document.querySelector('.img-upload__effect-level');
@@ -90,7 +90,7 @@ const effectButtonChangeHandler = (event) => {
 };
 
 const initSlider = () => {
-  effectButtons.addEventListener('change', effectButtonChangeHandler);
+  effectChoice.addEventListener('change', effectButtonChangeHandler);
 };
 
 export {initSlider, resetSlider};
