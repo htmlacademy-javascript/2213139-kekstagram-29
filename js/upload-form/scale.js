@@ -13,7 +13,6 @@ let currentScale = MAX_SCALE;
 const changeScale = (value) => {
   imgUploadPreview.style.transform = `scale(${value / DIVIDER})`;
   scaleControlValue.value = `${value}%`;
-
 };
 
 const scaleControlSmallerClickHandler = (event) => {
