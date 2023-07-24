@@ -1,6 +1,7 @@
 import {initScale, resetScale} from './scale.js';
 import {setValidate, resetValidation} from './validate.js';
 import {initSlider} from './slider.js';
+import {isEscapeKey} from '../utils/util.js';
 
 const uploadInput = document.querySelector('.img-upload__input');
 const uploadForm = document.querySelector('.img-upload__form');
@@ -38,7 +39,7 @@ const uploadFormSubmitHandler = (event) => {
 };
 
 function documentKeydownHandler(event) {
-  if (event.key === 'Escape' && !event.target.closest('.text__hashtags') && !event.target.closest('.text__description')) {
+  if (isEscapeKey() && !event.target.closest('.text__hashtags') && !event.target.closest('.text__description')) {
     event.preventDefault();
     closeUploadForm();
   }
