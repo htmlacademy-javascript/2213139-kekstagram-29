@@ -1,29 +1,28 @@
-import {createPhotoDescriptions} from './data.js';
-import {renderBigPicture} from './big-picture.js';
+import { renderBigPicture } from './big-picture.js';
 
+const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
 const picturesContainer = document.querySelector('.pictures');
-const picture = document.querySelector('#picture').content.querySelector('.picture');
-const data = createPhotoDescriptions();
-const fragment = document.createDocumentFragment();
 
-// Создание одной миниатюры
-const createThumbnail = (photo) => {
-  const pictureClone = picture.cloneNode(true);
-  const img = pictureClone.querySelector('.picture__img');
-  img.src = photo.url;
-  img.alt = photo.description;
-  pictureClone.querySelector('.picture__comments').textContent = photo.comments.length;
-  pictureClone.querySelector('.picture__likes').textContent = photo.likes;
-  pictureClone.addEventListener('click', (event) => {
+const createThumbnail = (item) => {
+  const template = pictureTemplate.cloneNode(true);
+  const img = template.querySelector('.picture__img');
+  const comments = template.querySelector('.picture__comments');
+  const likes = template.querySelector('.picture__likes');
+
+  img.src = item.url;
+  img.alt = item.description;
+  comments.textContent = item.comments.length;
+  likes.textContent = item.likes;
+  template.addEventListener('click', (event) => {
     event.preventDefault();
-    renderBigPicture(photo);
+    renderBigPicture(item);
   });
-  fragment.append(pictureClone);
+
+  return template;
 };
 
-const renderThumbnails = () => {
-  data.forEach((item) => createThumbnail(item));
-  picturesContainer.append(fragment);
+const renderThumbnails = (data) => {
+  data.forEach((item) => picturesContainer.append(createThumbnail(item)));
 };
 
-export {renderThumbnails};
+export { renderThumbnails };
