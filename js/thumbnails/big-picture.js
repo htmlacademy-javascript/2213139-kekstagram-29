@@ -1,3 +1,5 @@
+import {isEscapeKey} from '../utils/util.js';
+
 const COMMENT_COUNTER = 5;
 const bigPicture = document.querySelector('.big-picture');
 const socialComments = document.querySelector('.social__comments');
@@ -47,7 +49,7 @@ function buttonCloseClickHandler (event) {
 }
 
 function documentKeydownHandler (event) {
-  if (event.key === 'Escape' && !event.target.closest('.social__footer-text')) {
+  if (isEscapeKey() && !event.target.closest('.social__footer-text')) {
     closeModal();
   }
 }
@@ -90,6 +92,5 @@ const renderBigPicture = (data) => {
   openModal();
   fillBigPicture(data);
 };
-
 
 export {renderBigPicture};
