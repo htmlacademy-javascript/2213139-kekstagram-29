@@ -1,14 +1,12 @@
-const getRandomNumber = (min, max) => (Math.floor(Math.random() * (max - min) + min));
-
 const isEscapeKey = (event) => event.key === 'Escape';
 
-function debounce (callback, timeoutDelay) {
+const debounce = (callback, timeoutDelay) => {
   let timeoutId;
 
   return (...rest) => {
     clearTimeout(timeoutId);
     timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
   };
-}
+};
 
-export {getRandomNumber, isEscapeKey, debounce};
+export {isEscapeKey, debounce};

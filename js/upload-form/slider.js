@@ -62,11 +62,11 @@ const createSlider = (filter) => {
   setContainerState(filter);
   noUiSlider.create(slider, {
     range: {
-      min: min,
-      max: max
+      min,
+      max
     },
     start: max,
-    step: step,
+    step,
     connect: 'lower',
   });
 

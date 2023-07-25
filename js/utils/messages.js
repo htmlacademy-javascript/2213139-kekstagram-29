@@ -13,12 +13,13 @@ const createMessage = (type, text, buttonText) => (
 );
 
 const createElement = (template) => {
-  const element = document.createElement('div');
-  element.innerHTML = template;
-  return element.firstChild;
+  const div = document.createElement('div');
+  div.innerHTML = template;
+  return div.firstChild;
 };
 
 const closeMessage = () => {
+  document.removeEventListener('keydown', documentKeydownHandler, {capture: true});
   message.remove();
 
   if (!isOpen) {
@@ -35,9 +36,9 @@ function documentKeydownHandler(event) {
 }
 
 const showMessage = (type, text, buttonText) => {
+  isOpen = false;
   message = createElement(createMessage(type, text, buttonText));
   document.body.append(message);
-  isOpen = false;
 
   message.addEventListener('click', (event) => {
     if (!event.target.closest(`.${type}__inner`)) {
@@ -45,11 +46,11 @@ const showMessage = (type, text, buttonText) => {
       closeMessage();
     }
   });
-  document.addEventListener('keydown', documentKeydownHandler, {capture: true, once: true});
+
+  document.addEventListener('keydown', documentKeydownHandler, {capture: true});
 
   if (buttonText) {
-    const messageButton = message.querySelector(`.${type}__button`);
-    messageButton.addEventListener('click', closeMessage);
+    message.querySelector(`.${type}__button`).addEventListener('click', closeMessage);
   }
 
   if (!document.body.classList.contains('modal-open')) {

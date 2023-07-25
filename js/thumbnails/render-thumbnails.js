@@ -1,4 +1,4 @@
-import { renderBigPicture } from './big-picture.js';
+import {renderBigPicture} from './big-picture.js';
 
 const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
 const picturesContainer = document.querySelector('.pictures');
@@ -21,8 +21,6 @@ const createThumbnail = (item) => {
   return template;
 };
 
-const renderThumbnails = (data) => {
-  data.forEach((item) => picturesContainer.append(createThumbnail(item)));
-};
+const renderThumbnails = (data) => data.forEach((item) => picturesContainer.append(createThumbnail(item)));
 
-export { renderThumbnails };
+export {renderThumbnails};

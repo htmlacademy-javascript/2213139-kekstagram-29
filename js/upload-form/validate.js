@@ -1,47 +1,49 @@
 const HASHTAG_REGEXP = /^#[a-zа-яё0-9]{1,19}$/i;
-const COMMENT_MAX_LENGTH = 140;
-const HASHTAGS_MAX_QUANTITY = 5;
+const MAX_COMMENT_LENGTH = 140;
+const MAX_HASHTAG_COUNT = 5;
 
-const imgUploadForm = document.querySelector('.img-upload__form');
-const textHashtags = document.querySelector('.text__hashtags');
-const textDescription = document.querySelector('.text__description');
+const INVALID_COMMENT_LENGTH_TEXT = 'Максимальная длина комментария - 140 символов';
+const INVALID_HASHTAG_TEXT = 'Хэштэги должны начинаться с #, не могут состоять только из решетки, после решётки должны состоять из букв и чисел и не могут содержать пробелы, спецсимволы (#, @, $ и т. п.), символы пунктуации (тире, дефис, запятая и т. п.), эмодзи и т. д. Максимальная длина одного хэш-тега 20 символов.';
+const INVALID_HASHTAG_QUANTITY_TEXT = 'Нельзя указывать больше пяти хэштегов';
+const HASHTAG_REPEAT_TEXT = 'Хэштэги не должны повторяться';
 
-const pristine = new Pristine(imgUploadForm, {
+const uploadForm = document.querySelector('.img-upload__form');
+const imageHashtags = document.querySelector('.text__hashtags');
+const imageDescription = document.querySelector('.text__description');
+
+const pristine = new Pristine(uploadForm, {
   classTo: 'img-upload__field-wrapper',
   errorTextParent: 'img-upload__field-wrapper'
 });
 
-const checkTextHashtags = (value) => {
+const createHashtags = (value) => value.trim().toLowerCase().split(' ');
+
+const checkHashtags = (value) => {
   if (!value) {
     return true;
   }
-  const hashtags = value.trim().split(' ');
-  const checkResult = hashtags.every((element) => (element.match(HASHTAG_REGEXP)));
-  return checkResult;
+  const hashtags = createHashtags(value);
+  return hashtags.every((element) => (element.match(HASHTAG_REGEXP)));
 };
 
-const checkHashtagsQuantity = (value) => value.trim().split(' ').length <= HASHTAGS_MAX_QUANTITY;
+const checkHashtagsCount = (value) => value.split(' ').length <= MAX_HASHTAG_COUNT;
 
-const checkSameHashtags = (value) => {
-  const hashtags = value.trim().split(' ');
+const checkSimilarHashtags = (value) => {
+  const hashtags = createHashtags(value);
   return hashtags.length === new Set(hashtags).size;
 };
 
-const checkCommentLength = (value) => (value.length <= COMMENT_MAX_LENGTH);
+const checkCommentLength = (value) => value.length <= MAX_COMMENT_LENGTH;
 
-const setValidators = () => {
-  pristine.addValidator(textHashtags, checkTextHashtags, 'Хэш-тег начинается с символа #, дальше состоять из букв и чисел и не может содержать пробелы, спецсимволы (#, @, $ и т. п.), символы пунктуации (тире, дефис, запятая и т. п.), эмодзи и т. д.');
-  pristine.addValidator(textHashtags, checkHashtagsQuantity, 'Нельзя указать больше пяти хэш-тегов');
-  pristine.addValidator(textHashtags, checkSameHashtags, 'Хэштеги не должны повторяться');
-  pristine.addValidator(textDescription, checkCommentLength, 'Комментарий не должен быть больше 140 символов');
+const validatePristine = () => pristine.validate();
+
+const resetPristine = () => pristine.reset();
+
+const initPristine = () => {
+  pristine.addValidator(imageDescription, checkCommentLength, INVALID_COMMENT_LENGTH_TEXT, 1, true);
+  pristine.addValidator(imageHashtags, checkHashtags, INVALID_HASHTAG_TEXT, 1, true);
+  pristine.addValidator(imageHashtags, checkHashtagsCount, INVALID_HASHTAG_QUANTITY_TEXT, 1, true);
+  pristine.addValidator(imageHashtags, checkSimilarHashtags, HASHTAG_REPEAT_TEXT, 1, true);
 };
 
-const resetValidation = () => {
-  pristine.reset();
-};
-
-const setValidate = () => {
-  setValidators();
-};
-
-export {setValidate, resetValidation};
+export {initPristine, resetPristine, validatePristine};
