@@ -24,7 +24,7 @@ const filterInRandomOrder = (data) => {
   return dataClone.slice(0, RANDOM_PICTURES_COUNT);
 };
 
-const getFilteringData = (id, data) => {
+const getFilteredData = (id, data) => {
   switch (id) {
     case FILTERS.random:
       return filterInRandomOrder(data);
@@ -35,12 +35,12 @@ const getFilteringData = (id, data) => {
   }
 };
 
-const renderFilteringPictures = (id, data) => {
+const renderFilteredPictures = (id, data) => {
   picturesContainer.querySelectorAll('.picture').forEach((picture) => picture.remove());
-  renderThumbnails(getFilteringData(id, data));
+  renderThumbnails(getFilteredData(id, data));
 };
 
-const renderPictures = debounce((id, data) => renderFilteringPictures(id, data), DELAY);
+const renderPictures = debounce((id, data) => renderFilteredPictures(id, data), DELAY);
 
 const initFilter = (data) => {
   filters.classList.remove('img-filters--inactive');
@@ -54,4 +54,4 @@ const initFilter = (data) => {
   });
 };
 
-export {initFilter, getFilteringData};
+export {initFilter, getFilteredData};
