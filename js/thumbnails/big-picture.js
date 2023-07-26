@@ -14,7 +14,7 @@ const socialCaption = document.querySelector('.social__caption');
 let showingComments = 0;
 let comments;
 
-const fillCommentsCounter = () => (commentCount.innerHTML = `${showingComments} из <span class="comments-count">${comments.length}</span> комментариев</div>`);
+const fillCommentsCounter = () => (commentCount.innerHTML = `${showingComments} из <span class="comments-count">${comments.length}</span>комментариев</div>`);
 
 const setButtonState = () => {
   if (showingComments >= comments.length) {
@@ -55,9 +55,10 @@ function documentKeydownHandler (event) {
 const fillComment = (item) => {
   const comment = socialComment.cloneNode(true);
   const socialPicture = comment.querySelector('.social__picture');
+  const socialText = comment.querySelector('.social__text');
   socialPicture.src = item.avatar;
   socialPicture.alt = item.name;
-  comment.querySelector('.social__text').textContent = item.message;
+  socialText.textContent = item.message;
   return comment;
 };
 
@@ -76,13 +77,13 @@ function commentsLoaderClickHandler (event) {
   fillCommentsList();
 }
 
-function fillBigPicture (data) {
+const fillBigPicture = (data) => {
   bigImg.src = data.url;
   bigImg.alt = data.description;
   likesCount.textContent = data.likes;
   socialCaption.textContent = data.description;
   fillCommentsList();
-}
+};
 
 const renderBigPicture = (data) => {
   comments = data.comments;
