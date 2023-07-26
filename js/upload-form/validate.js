@@ -5,7 +5,7 @@ const MAX_HASHTAG_COUNT = 5;
 const INVALID_COMMENT_LENGTH_TEXT = 'Максимальная длина комментария - 140 символов';
 const INVALID_HASHTAG_TEXT = 'Хэштэги должны начинаться с #, не могут состоять только из решетки, после решётки должны состоять из букв и чисел и не могут содержать пробелы, спецсимволы (#, @, $ и т. п.), символы пунктуации (тире, дефис, запятая и т. п.), эмодзи и т. д. Максимальная длина одного хэш-тега 20 символов.';
 const INVALID_HASHTAG_QUANTITY_TEXT = 'Нельзя указывать больше пяти хэштегов';
-const HASHTAG_REPEAT_TEXT = 'Хэштэги не должны повторяться';
+const INVALID_HASHTAG_REPEAT_TEXT = 'Хэштэги не должны повторяться';
 
 const uploadForm = document.querySelector('.img-upload__form');
 const imageHashtags = document.querySelector('.text__hashtags');
@@ -43,7 +43,7 @@ const initPristine = () => {
   pristine.addValidator(imageDescription, checkCommentLength, INVALID_COMMENT_LENGTH_TEXT, 1, true);
   pristine.addValidator(imageHashtags, checkHashtags, INVALID_HASHTAG_TEXT, 1, true);
   pristine.addValidator(imageHashtags, checkHashtagsCount, INVALID_HASHTAG_QUANTITY_TEXT, 1, true);
-  pristine.addValidator(imageHashtags, checkSimilarHashtags, HASHTAG_REPEAT_TEXT, 1, true);
+  pristine.addValidator(imageHashtags, checkSimilarHashtags, INVALID_HASHTAG_REPEAT_TEXT, 1, true);
 };
 
 export {initPristine, resetPristine, validatePristine};
