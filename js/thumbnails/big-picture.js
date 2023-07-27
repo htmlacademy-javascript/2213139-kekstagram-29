@@ -14,7 +14,7 @@ const socialCaption = document.querySelector('.social__caption');
 let showingComments = 0;
 let comments;
 
-const fillCommentsCounter = () => (commentCount.innerHTML = `${showingComments} из <span class="comments-count">${comments.length}</span>комментариев</div>`);
+const fillCommentsCounter = () => (commentCount.innerHTML = `${showingComments} из <span class="comments-count">${comments.length}</span> комментариев</div>`);
 
 const setButtonState = () => {
   if (showingComments >= comments.length) {

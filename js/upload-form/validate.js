@@ -16,7 +16,7 @@ const pristine = new Pristine(uploadForm, {
   errorTextParent: 'img-upload__field-wrapper'
 });
 
-const createHashtags = (value) => value.trim().toLowerCase().split(' ');
+const createHashtags = (value) => value.trim().toLowerCase().split(' ').filter((it) => it);
 
 const checkHashtags = (value) => {
   if (!value) {
